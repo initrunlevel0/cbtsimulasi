@@ -359,7 +359,10 @@ app.controller('loginController', function($scope, $location) {
     }
 });
 
-var soal = [
+
+// Ujian Controller
+app.controller('ujianController', function($scope, $interval, $location) {
+    $scope.soal =[
     {
       "id": "MANAJERIAL-1",
       "soal": "Anda diminta atasan untuk membuat laporan bulanan, tetapi Anda tidak tahu caranya. Apa yang Anda lakukan?",
@@ -761,11 +764,7 @@ var soal = [
             "jawaban_benar": "B"
           }
             
-  ];
-
-// Ujian Controller
-app.controller('ujianController', function($scope, $interval, $location) {
-    $scope.soal = soal;
+    ];
     $scope.state = "ujian";
 
     i = 1;
