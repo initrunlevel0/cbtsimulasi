@@ -6,7 +6,7 @@
 
 </style>
 </head>
-<body class="container">
+<body class="container-fluid m-0">
     <div class="row  bg-dark text-white">
         <div class="col-md-12"><h4>CBTSimulasi</h4> </div>
     </div>
@@ -42,6 +42,8 @@
                 </div>
             </div>
             <hr>
+            <h4>Sekarang coba lakukan gulung layar ke bawah...</h4>
+            <hr>
             <h4>Petunjuk Pengoperasian Keyboard</h4>
             <div class="row">
                 <div class="col-md-3">
@@ -62,13 +64,19 @@
                 </div>
             </div>
             <hr>
-            <h3>Mohon baca petunjuk dengan baik</h3>
-            Selamat Datang di CBTSimulasi<br>
-            Aplikasi sederhana ini digunakan untuk mengenalkan Bapak/Ibu terhadap tata cara penggunaan aplikasi Ujian berbasis Komputer<br>
-            Sebelum menggunakan, <strong>harap catat data kredensial berikut di atas kertas untuk proses login</strong><br>
-            <h4>Data Kredensial</h4>
-            <strong>PASTIKAN KETIKA LOGIN MENGGUNAKAN DATA BERIKUT, JANGAN SAMPAI SALAH KETIK</strong>
+            <h4>Sekarang coba lakukan gulung layar ke bawah...</h4>
+            <hr>
+            
+           
 
+          <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+              <h3>Mohon baca petunjuk dengan baik</h3>
+              Selamat Datang di CBTSimulasi<br>
+              Aplikasi sederhana ini digunakan untuk mengenalkan Bapak/Ibu terhadap tata cara penggunaan aplikasi Ujian berbasis Komputer<br>
+              Sebelum menggunakan, <strong>harap catat data kredensial berikut di atas kertas untuk proses login</strong><br>
+              <strong>PASTIKAN KETIKA LOGIN MENGGUNAKAN DATA BERIKUT, JANGAN SAMPAI SALAH KETIK SEDIKITPUN</strong>
             <table class="table">
                 <tbody>
                     <tr>
@@ -91,7 +99,14 @@
                 </tbody>
             </table>
             <h4>Jika sudah dicatat, silahkan klik tombol "SAYA SIAP IKUT SIMULASI" di bawah ini. Anda akan menuju ke halaman Login, isi seluruh kredensial ke kotak teks yang sesuai. <strong>DATA AKAN DISEMBUNYIKAN DARI LAYAR</strong></h4>
-            <button class="btn btn-primary" ng-click="mulai()">SAYA SIAP IKUT SIMULASI</button>
+            <div class="d-grid gap-2">
+              <button class="btn btn-primary btn-block" ng-click="mulai()">SAYA SIAP IKUT SIMULASI</button>
+            </div>
+            
+            </div>
+            <div class="col-md-3"></div>
+          </div>
+           
 
         </div>
         <div ng-show="state == 'login'">
@@ -116,21 +131,34 @@
                 </div>
               </div>
             <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6 align-center">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 align-center">
+                <div class="alert bg-primary">
                 <form id="loginForm" action="index.php" method="post">
                     <input class="form-control" placeholder="NIK" ng-model="entry.nik"><br>
                     <input class="form-control" placeholder="NO PESERTA" ng-model="entry.no_peserta"><br>
                     <input class="form-control" placeholder="PIN PESERTA" ng-model="entry.pin_peserta"><br>
                     <input class="form-control" placeholder="PIN SESI" ng-model="entry.pin_sesi"><br>
-                    <button class="btn btn-primary" type="button" ng-click="login()">Masuk</button>
+                    <div class="d-grid gap-2">
+                      <button class="btn bg-success btn-primary" type="button" ng-click="login()">Masuk</button>
+                    </div>
+                   
                 </form>
                 <div class="alert alert-danger" ng-show="error">{{error}}</div>
+              </div>
             </div>
-            <div class="col-md-3"></div>
+            <div class="col-md-4"></div>
             </div>
+            <hr>
+            <small><i>HINT (TIDAK AKAN MUNCUL KETIKA UJIAN YANG SEBENARNYA): Pastikan jangan sampai salah isi. Pada ujian sebenarnya, Anda harus mengisi data sesuai apa yang tertulis di Kartu Peserta. 
+              Khusus ujian simulasi ini, Anda harus mengisi data NIK/No Peserta/PIN Peserta/PIN Sesi yang diberikan sebelumnya diberikan pada halaman awal (sebelum klit "SAYA SIAP IKUT SIMULASI"). 
+              Jika terdapat error, perbaikan isiannya.
+               Klik pada bagian yang salah ketik sampai tanda garis | berkedip berpindah kemudian tekan BACKSPACE (<-) untuk menghapus di sebelah kiri tanda garis | berkedip atau tekan DELETE untuk menghapus karakter di sebelah kanan tanda garis | berkedip. 
+               Untuk membuat huruf besar, nyalakan CAPS LOCK dengan menekan tombol CAPS LOCK sampai tanda lampunya menyala.
+               Jika Anda lupa mencatat, <a href="#" ng-click="ulangiSimulasi()">klik ini</a> untuk mengulang. </i></small>
 
         </div>
+
         <div ng-show="state == 'start'">
             <table class="table">
                 <tbody>
@@ -160,18 +188,6 @@
 
     <script type="text/ng-template" id="ujian.html">
         <div ng-show="state == 'ujian'">
-        <div class="d-flex justify-content-between">
-            <div class="align-self-start">
-                <h4>INI HANYALAH SIMULASI UJIAN</h4>
-            </div>
-            <div class="align-self-end">
-              <div class="bg-warning text-white p-1">
-                <h3> {{ kalkulasiWaktu(currentTimer) }}</h3>
-                <button class="btn btn-danger" ng-show="bolehSelesai" ng-click="selesaiKah()">Selesai Ujian</button>
-              </div>
-            </div>
-          </div>
-          <hr>
         <div class="row">
             <div class="col-sm-2 bg-light ">
             <div class="row">
@@ -181,6 +197,18 @@
             </div>
             </div>
             <div class="col-sm-10">
+              <div class="d-flex justify-content-between">
+                <div class="align-self-start pt-2">
+                    <h3>INI HANYA SIMULASI UJIAN</h3>
+                </div>
+                <div class="align-self-end">
+                  <div class="bg-warning text-white p-2">
+                    <h3> {{ kalkulasiWaktu(currentTimer) }}</h3>
+                    <button class="btn btn-danger" ng-show="bolehSelesai" ng-click="selesaiKah()">Selesai Ujian</button>
+                  </div>
+                </div>
+              </div>
+              <hr>
             
             <div><h4><p>{{ soal[currentSoal].no }}. {{ soal[currentSoal].soal }}</p></h4></div>
             <p>
@@ -200,13 +228,14 @@
             </div>
             </div>
             <hr>
-            <i>MOHON PERHATIAN (PETUNJUK INI TIDAK AKAN DIMUNCULKAN KETIKA UJIAN YANG SEBENARNYA)</i><br>
+            <small>
+            <i>HINT (PETUNJUK INI TIDAK AKAN DIMUNCULKAN KETIKA UJIAN YANG SEBENARNYA)</i><br>
             <i>Pastikan untuk menyimpan jawaban, pilih pada opsi jawaban lalu klik SIMPAN DAN LANJUTKAN.
                Jika memilih jawaban tapi klik LEWATKAN, maka jawaban tidak akan tersimpan. 
                Dalam sisa waktu yang diberikan (di pojok kanan atas), 
                pastikan semua soal terjawab semua (nomor soal berwarna hijau semua).
                 Anda dapat mengerjakan soal secara acak tidak harus dimulai dari nomor 1, caranya tinggal klik nomor soal di sebelah kiri 
-                (jawaban saat ini tidak akan tersimpan jika Anda klik nomor soal sebelum klik SIMPAN DAN LANJUTKAN).
+                (jawaban saat ini tidak akan tersimpan jika Anda klik nomor soal sebelum klik SIMPAN DAN LANJUTKAN).</i></small>
 
             
         </div>
@@ -318,6 +347,11 @@ app.controller('loginController', function($scope, $location) {
         }
 
         $scope.state = "start"
+    }
+
+
+    $scope.ulangi = function() {
+      $location.path('/login');
     }
 
     $scope.mulaiUjian = function() {
@@ -803,6 +837,8 @@ app.controller('ujianController', function($scope, $interval, $location) {
     }
 
     $scope.ulangi = function() {
+      $interval.cancel(intervalTimer);
+      intervalTimer = null;
       $location.path('/login');
     }
    
