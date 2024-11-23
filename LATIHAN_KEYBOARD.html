@@ -62,10 +62,10 @@
   <div id="gameArea">
     <div id="targetDisplay"></div>
     <input type="text" id="inputBox">
-    <input type="text" id="input1" placeholder="TEXT BOX 1">
-    <input type="text" id="input2" placeholder="TEXT BOX 2">
-    <input type="text" id="input3" placeholder="TEXT BOX 3">
-    <input type="text" id="input4" placeholder="TEXT BOX 4">
+    <input type="text" id="input1" placeholder="KOTAK TEKS 1">
+    <input type="text" id="input2" placeholder="KOTAK TEKS 2">
+    <input type="text" id="input3" placeholder="KOTAK TEKS 3">
+    <input type="text" id="input4" placeholder="KOTAK TEKS 4">
 
     
   </div>
@@ -94,6 +94,11 @@
       return chars[Math.floor(Math.random() * chars.length)];
     }
 
+    function getRandomCharUpperLower() {
+      const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      return chars[Math.floor(Math.random() * chars.length)];
+    }
+
     function getRandomAlphabet() {
       const chars = "abcdefghijklmnopqrstuvwxyz";
       return chars[Math.floor(Math.random() * chars.length)];
@@ -110,11 +115,18 @@
 
 
 
-
     function getRandomString(length = 5) {
       let str = "";
       for (let i = 0; i < length; i++) {
         str += getRandomChar();
+      }
+      return str;
+    }
+
+    function getRandomStringUpperLower(length = 5) {
+      let str = "";
+      for (let i = 0; i < length; i++) {
+        str += getRandomCharUpperLower();
       }
       return str;
     }
@@ -188,14 +200,14 @@
 
     function prepareShiftKeyTask() {
       targetChar = getRandomAlphabet();
-      targetDisplay.textContent = `Ketik huruf kapital: ${targetChar.toUpperCase()}`;
+      targetDisplay.textContent = `Tekan tombol SHIFT dan ${targetChar.toUpperCase()} berbarengan untuk membuat huruf kapital ${targetChar.toUpperCase()}`;
       inputBox.style.display = "none"; // Sembunyikan textbox
     }
 
     function prepareBackspaceTask() {
       text = getRandomUniqueString();
       toDelete = getRandomCharOfAString(text);
-      targetDisplay.textContent = `Hapus karakter: ${toDelete}, lalu Tekan Enter`;
+      targetDisplay.textContent = `Hapus karakter: ${toDelete} pada kotak teks, lalu Tekan Enter`;
       inputBox.value = text;
       inputBox.style.display = "block"; // Tampilkan kotak teks
     }
@@ -208,7 +220,7 @@
         input4.style.display = "block";
 
         randomTextBox = Math.floor(Math.random() * 4) + 1;
-        targetString = getRandomString();
+        targetString = getRandomStringUpperLower();
         targetDisplay.textContent = `Klik kotak teks ${randomTextBox}, ketik ${targetString} lalu tekan Enter`;
 
         input1.value = "";
@@ -223,7 +235,7 @@
         // Tahap 1: Tekan tombol huruf/angka
         if (event.key.toLowerCase() === targetChar.toLowerCase()) {
           currentTask++;
-          if (currentTask < 50) {
+          if (currentTask < 25) {
             prepareRandomKeyTask();
           } else {
             nextStage();
@@ -233,7 +245,7 @@
         // Tahap 2: Ketik kombinasi huruf
         if (inputBox.value === targetString) {
           currentTask++;
-          if (currentTask < 10) {
+          if (currentTask < 5) {
             prepareTypingCombinationTask();
           } else {
             nextStage();
@@ -243,7 +255,7 @@
         // Tahap 3: Ketik huruf kapital
         if (event.key === targetChar.toUpperCase() && event.shiftKey) {
           currentTask++;
-          if (currentTask < 50) {
+          if (currentTask < 25) {
             prepareShiftKeyTask();
           } else {
             nextStage();
@@ -252,7 +264,7 @@
       } else if (stage === 4) {
         if (inputBox.value === removeSpecificChar(text, toDelete)) {
           currentTask++;
-          if (currentTask < 10) {
+          if (currentTask < 5) {
             prepareBackspaceTask();
           } else {
             nextStage();
@@ -265,7 +277,7 @@
     } else if(stage === 5) {
         if(document.getElementById("input" + randomTextBox).value === targetString) {
           currentTask++;
-          if (currentTask < 10) {
+          if (currentTask < 5) {
             prepareMultiTextCombinationTask();
           } else {
             nextStage();

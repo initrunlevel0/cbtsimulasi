@@ -20,6 +20,12 @@
     </div>
   
     <script type="text/ng-template" id="login.html">
+        <div ng-show="state == 'nosupport'">
+          <h3>Perangkat tidak didukung</h3>
+          <h4>CBTSimulasi didesain untuk Laptop/PC dengan pengoperasian menggunakan mouse. Penggunaan smartphone tidak disarankan karena tidak ada nilai edukasinya sama sekali. Ujian komputer dioperasikan menggunakan komputer tradisional, bukan komputer berbasis layar sentuh</h4>
+          <h4>Harap menggunakan/meminjam PC/laptop dengan mouse dan keyboard untuk memaksimalkan pengalaman</h4>
+          <p>User Agent: {{ userAgent }}</p>
+        </div>
         <div ng-show="state == 'first'">
            
             <h4>Petunjuk Pengoperasian Mouse</h4>
@@ -302,7 +308,17 @@ document.addEventListener('keydown', (e) => {
 app = angular.module('app', ['ngRoute']);
 // Login Controller
 app.controller('loginController', function($scope, $location) {
-    $scope.state = "first";
+
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    isMobile = /android|iphone|ipad|ipod|opera mini|iemobile|wpdesktop|mobile/i.test(userAgent);
+
+    if(isMobile) {
+      $scope.userAgent = userAgent;
+      $scope.state = "nosupport";
+    } else {
+      $scope.state = "first";
+    }
     var confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
     
     $scope.real = {
